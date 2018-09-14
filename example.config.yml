@@ -1,0 +1,31 @@
+
+# Params
+radarRelayRestEndpoint: 'https://api.kovan.radarrelay.com/v0'
+radarRelayWebSocketEndpoint: 'wss://api.kovan.radarrelay.com/ws'
+dataRpcUrl: 'https://kovan.infura.io/radar'
+wrapThreshold: 0.1 # minimum eth required to trigger a wrap event
+gasPrice: 1 # in gwei
+#sdkInitializationTimeoutMs: 30000
+
+# If you want to default the wallet password for dev purposes. NOTICE: highly insecure!
+# wallet:
+#   password: 'mydevpassword'
+
+# Exchanges
+exchanges:
+  - 'binance'
+  - 'poloniex'
+  - 'bittrex'
+
+# Maker algorithm params
+algo:
+  expiration: 3 # in hours
+  spread: # spread percentages
+    - 0.01
+    - 0.03
+    - 0.05
+    - 0.075
+    - 0.11
+    - 0.125
+    - 0.15
+    - 0.2

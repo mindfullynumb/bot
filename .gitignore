@@ -1,0 +1,7 @@
+node_modules
+dist
+.s-wallet
+.cache
+.npmrc
+config.yml
+*.iml
