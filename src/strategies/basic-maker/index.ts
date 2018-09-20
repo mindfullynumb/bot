@@ -40,7 +40,8 @@ export class BasicMakerStrategy<T extends BaseAccount> extends Strategy<T> {
     }
     
     try {
-      radar = await this._rr.markets.get(marketToRadarFormat(market)).getTickerAsync();
+      const rrMarket = await this._rr.markets.getAsync(marketToRadarFormat(market));
+      radar = await rrMarket.getTickerAsync();
       // Explicit string to number conversion to avoid NaN during calculations
       radar = convertKeysToNumber(radar, ['price', 'size', 'timestamp', 'volume', 'bid', 'ask']);
     } catch(err) {
@@ -267,7 +268,7 @@ export class BasicMakerStrategy<T extends BaseAccount> extends Strategy<T> {
     }]);
     const market = marketPrompt.market;
     console.log('selected:', colors.green(market));
-    const radarMarket = this._rr.markets.get(marketToRadarFormat(market));
+    const radarMarket = await this._rr.markets.getAsync(marketToRadarFormat(market));
 
     // Check Balances / Allowances
     // ---------------------------
