@@ -14,7 +14,7 @@
   },
   "author": "Mike Roth <mike@radarrelay.com>",
   "dependencies": {
-    "@radarrelay/sdk": "^2.2.0",
+    "@radarrelay/sdk": "^2.2.1",
     "bignumber.js": "^4.1.0",
     "ccxt": "^1.14.46",
     "cli-spinner": "^0.2.8",
