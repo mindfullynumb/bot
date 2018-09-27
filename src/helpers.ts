@@ -65,17 +65,6 @@ export function marketToCCXTFormat(market: string) {
 }
 
 /**
- * Check if a wallet exists
- */
-export function walletExists(): boolean {
-  try {
-    return fs.existsSync('.s-wallet');
-  } catch (err) {
-    return false;
-  }
-}
-
-/**
  * Get current gas price 
  * from ethgastation API
  *

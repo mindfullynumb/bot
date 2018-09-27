@@ -8,7 +8,7 @@ import prompt = require('prompt');
 import colors = require('colors/safe');
 
 // Libs
-import {getConfig, walletExists, checkGasPrice} from './helpers';
+import {getConfig, checkGasPrice} from './helpers';
 import {Balances, Transfers, CCXT} from './lib';
 
 // Strategies
@@ -44,32 +44,16 @@ const ccxt = new CCXT(config);
 // App logic
 (async () => {
 
-  // Get password
-  const passPrompt = await getPrompt([{
-    name: 'password',
-    description: colors.green("Enter wallet password"),
-    default: config.wallet && config.wallet.password,
-    hidden: true,
-    replace: '*',
-    required: true
-  }]);
-  
   // Async check gas price
   checkGasPrice(config.gasPrice);
 
   console.log(colors.green('Connecting to Ethereum...'));
-  const exists = walletExists();
 
   // Setup Radar SDK
   const rr = SdkManager.Setup({
-    wallet: {
-      password: passPrompt.password
-    },
-    sdkInitializationTimeoutMs: config.sdkInitializationTimeoutMs || 30000,
-    dataRpcUrl: config.dataRpcUrl,
-    defaultGasPrice: new BigNumber(config.gasPrice),
     radarRestEndpoint: config.radarRelayRestEndpoint,
-    radarWebsocketEndpoint: config.radarRelayWebSocketEndpoint
+    radarWebsocketEndpoint: config.radarRelayWebSocketEndpoint,
+    rpcUrl: config.rpcUrl
   });
 
   // Listen for loading event
@@ -82,12 +66,6 @@ const ccxt = new CCXT(config);
 
   // Initialize SDK
   await SdkManager.InitializeAsync(rr);
-  
-  // Display Seed
-  if (!exists) {
-    console.log('\n\nWallet Created. Please write down your seed phrase: ');
-    console.log(colors.cyan(await rr.account.exportSeedPhraseAsync(passPrompt.password)));
-  }
   
   // Check for ETH
   let curEthBal = await rr.account.getEthBalanceAsync();
